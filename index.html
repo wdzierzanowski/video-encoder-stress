@@ -32,8 +32,9 @@
           `Encoder queue size: ${e.data.encodeQueueSize}`;
       if (e.data.timeElapsed != null) {
         statusOut.textContent =
-            `Done encoding in ${e.data.timeElapsed} ms, ` +
-            `${e.data.timeElapsed * 1.0 / e.data.frameCountOut} ms per frame`;
+            `The test took ${e.data.timeElapsed} ms, ` +
+            `${e.data.encodeTime} ms of which was actual encoding, ` +
+            `(${e.data.encodeTime * 1.0 / e.data.frameCountOut} ms per frame)`;
       } else {
         statusOut.textContent =
           `Finished encoding frame #${e.data.frameCountOut}`;

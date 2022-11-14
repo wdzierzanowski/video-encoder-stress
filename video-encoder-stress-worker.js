@@ -7,6 +7,7 @@ let status = {
   frameCountOut: 0,
   encodeQueueSize: 0,
   timeElapsed: null,
+  encodeTime: null,
 };
 
 function reportProgress() {
@@ -46,8 +47,14 @@ function encodeFrame(encoder, frame) {
 }
 
 function runEncodeLoop() {
+  let startTime = performance.now(); 
+  let encodeStartTime = null;
+
   const init = {
     output: _ => {
+      if (encodeStartTime == null) {
+        encodeStartTime = performance.now();
+      }
       status.frameCountOut++;
       status.encodeQueueSize = encoder.encodeQueueSize;
       reportProgress();
@@ -69,8 +76,6 @@ function runEncodeLoop() {
   const encoder = new VideoEncoder(init);
   encoder.configure(config);
 
-  let startTime = performance.now(); 
-
   let r = 0;
   let g = 100;
   let b = 200;
@@ -82,6 +87,7 @@ function runEncodeLoop() {
   }
 
   encoder.flush().then(_ => {
+    status.encodeTime = performance.now() - encodeStartTime;
     encoder.close();
     status.timeElapsed = performance.now() - startTime;
     reportProgress();
