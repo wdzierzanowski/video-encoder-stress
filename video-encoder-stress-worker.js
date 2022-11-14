@@ -1,5 +1,6 @@
 const kWidth = 640;
 const kHeight = 480;
+const kFps = 60;  // Only matters for timestamps.
 
 let status = {
   frameCountIn: 0,
@@ -15,7 +16,7 @@ function reportProgress() {
 function createFrame(r, g, b) {
   const pixelSize = 4;
   const init = {
-    timestamp: 0,
+    timestamp: status.frameCountIn * 1000.0 * 1000.0 / kFps,  // us
     codedWidth: kWidth,
     codedHeight: kHeight,
     format: "RGBA",
