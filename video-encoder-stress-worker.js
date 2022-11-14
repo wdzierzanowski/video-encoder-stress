@@ -70,7 +70,6 @@ function runEncodeLoop() {
     width: kWidth,
     height: kHeight,
     bitrate: 2_000_000, // 2 Mbps
-    hardwareAcceleration: "prefer-software",
   };
 
   const encoder = new VideoEncoder(init);
