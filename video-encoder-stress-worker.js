@@ -1,6 +1,6 @@
 const kWidth = 640;
 const kHeight = 480;
-const kFps = 60;  // Only matters for timestamps.
+const kFps = 60.0;
 
 let status = {
   frameCountIn: 0,
@@ -70,6 +70,7 @@ function runEncodeLoop() {
     width: kWidth,
     height: kHeight,
     bitrate: 2_000_000, // 2 Mbps
+    framerate: kFps,
   };
 
   const encoder = new VideoEncoder(init);
