@@ -1,6 +1,6 @@
 const kWidth = 640;
 const kHeight = 480;
-const kFps = 60.0;
+const kFps = 30.0;
 
 let status = {
   frameCountIn: 0,
