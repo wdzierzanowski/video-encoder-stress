@@ -66,7 +66,7 @@ function runEncodeLoop() {
   };
 
   const config = {
-    codec: "avc1.42001E",
+    codec: "avc1.420034",
     width: kWidth,
     height: kHeight,
     bitrate: 2_000_000, // 2 Mbps
