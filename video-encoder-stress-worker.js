@@ -2,12 +2,12 @@ const kWidth = 640;
 const kHeight = 480;
 const kFps = 30.0;
 
+let iterations = 20;
+
 let status = {
   frameCountIn: 0,
   frameCountOut: 0,
-  encodeQueueSize: 0,
-  timeElapsed: null,
-  encodeTime: null,
+  encodeTime: 0,
 };
 
 function reportProgress() {
@@ -40,7 +40,6 @@ function encodeFrame(encoder, frame) {
   encoder.encode(frame, { keyFrame });
   frame.close();
 
-  status.encodeQueueSize = encoder.encodeQueueSize;
   reportProgress();
 
   status.frameCountIn++;
@@ -56,8 +55,6 @@ function runEncodeLoop() {
         encodeStartTime = performance.now();
       }
       status.frameCountOut++;
-      status.encodeQueueSize = encoder.encodeQueueSize;
-      reportProgress();
     },
     error: (e) => {
       console.log(e.message);
@@ -87,10 +84,14 @@ function runEncodeLoop() {
   }
 
   encoder.flush().then(_ => {
-    status.encodeTime = performance.now() - encodeStartTime;
+    status.encodeTime += performance.now() - encodeStartTime;
     encoder.close();
-    status.timeElapsed = performance.now() - startTime;
     reportProgress();
+
+    --iterations;
+    if (iterations > 0) {
+      setTimeout(_ => runEncodeLoop());
+    }
   });
 }
 

@@ -27,18 +27,10 @@
         statusOut.textContent = `Error: ${e.data.error}`;
         return;
       }
-      statusIn.textContent =
-          `Enqueued frame #${e.data.frameCountIn}. ` +
-          `Encoder queue size: ${e.data.encodeQueueSize}`;
-      if (e.data.timeElapsed != null) {
-        statusOut.textContent =
-            `The test took ${e.data.timeElapsed} ms. ` +
-            `${e.data.encodeTime} ms elapsed since the first encoder output ` +
-            `(${e.data.encodeTime * 1.0 / e.data.frameCountOut} ms per frame).`;
-      } else {
-        statusOut.textContent =
-          `Finished encoding frame #${e.data.frameCountOut}`;
-      }
+      statusIn.textContent = `Enqueued frame #${e.data.frameCountIn}.`;
+      statusOut.textContent =
+          `${e.data.encodeTime} ms spent encoding queued frames ` +
+          `(${e.data.encodeTime * 1.0 / e.data.frameCountOut} ms per frame).`;
     };
   }
 
